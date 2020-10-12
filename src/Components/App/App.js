@@ -12,10 +12,25 @@ class App extends Component {
 
     this.state = {
       searchResults: [
-        {name: 'name', artist: 'artist', album: 'album', id: 'id' },
-        {name: 'name', artist: 'artist', album: 'album', id: 'id' },
-        {name: 'name', artist: 'artist', album: 'album', id: 'id' }
+        {name: 'name', artist: 'artist', album: 'album', id: 1 },
+        {name: 'name', artist: 'artist', album: 'album', id: 2 },
+        {name: 'name', artist: 'artist', album: 'album', id: 3 }
+      ],
+      playlistName: 'My Playlist',
+      playlistTracks: [
+        {name: 'name', artist: 'artist', album: 'album', id: 4}
       ]
+    }
+  // Bind THIS to Methods
+  this.addTrack = this.addTrack.bind(this);
+  }
+
+  // Add track to playlist State
+  addTrack(track) {
+    const { playlistTracks } = this.state;
+
+    if (playlistTracks.find(savedTrack => savedTrack.id === track.id)) {
+      return;
     }
   }
 
@@ -26,8 +41,11 @@ class App extends Component {
         <div className='App'>
             <SearchBar />
           <div className='App-playlist'>
-            <SearchResults searchResults={this.state.searchResults} />
-            <Playlist/>
+            <SearchResults 
+                onAdd={this.addTrack}    
+                searchResults={this.state.searchResults} 
+            />
+            <Playlist tracks={this.state.playlistTracks} />
         </div>
       </div>
     </div>
