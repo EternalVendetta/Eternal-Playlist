@@ -5,13 +5,15 @@ import './TrackList.css';
 import Track from '../Track/Track';
 
 class TrackList extends Component {
+
     render() {
         return (
             <div className='TrackList'>
-                {/* I will add map method to Track */}
-                <Track 
-                    isRemoval={false}
-                />
+               {
+                   this.props.tracks && this.props.tracks.map(track => {
+                       return <Track key={track.id} track={track}/>
+                   })
+               }
             </div>
         )
     }
