@@ -2,17 +2,33 @@ import React, { Component } from 'react';
 import './Track.css';
 
 class Track extends Component {
+    constructor(props) {
+        super(props);
+
+        // Bind THIS to Methods
+        this.addTrack = this.addTrack.bind(this);
+        this.removeTrack = this.removeTrack.bind(this);
+    }
 
 // Check if the Button is either + or -
-renderAction() {
+    renderAction() {
     // Props Destructuring
     const { isRemoval } = this.props;
 
         if (isRemoval) {
-            return <button className='Track-action'>-</button>
+            return <button onClick={this.removeTrack} className='Track-action'>-</button>
         } else {
-            return <button className='Track-action'>+</button>
+            return <button onClick={this.addTrack} className='Track-action'>+</button>
         }
+    }
+    // Add Track from searchResults to User's Playlist
+    addTrack() {
+        this.props.onAdd(this.props.track);
+    }
+
+    // Add Track from searchResults to User's Playlist
+    removeTrack() {
+        this.props.onRemove(this.props.track);
     }
 
     render() {
