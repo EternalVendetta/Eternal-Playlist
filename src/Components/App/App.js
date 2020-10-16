@@ -16,44 +16,37 @@ class App extends Component {
     this.state = {
       searchResults: [],
       playlistName: 'New Playlist',
-      playlistTracks: []
+      playlistTracks: [],
     }
-
-  // Bind THIS to Methods
-  this.addTrack = this.addTrack.bind(this);
-  this.removeTrack = this.removeTrack.bind(this);
-  this.updatePlaylistName = this.updatePlaylistName.bind(this);
-  this.savePlaylist = this.savePlaylist.bind(this);
-  this.search = this.search.bind(this);
   }
 
   // Add track to User's Playlist
-  addTrack(track) {
+  addTrack = (track) => {
     const tracks = this.state.playlistTracks
-
+    
     if (tracks.find(savedTrack => savedTrack.id === track.id)) {
       return;
     }
-
+    
     tracks.push(track);
     this.setState({ playlistTracks: tracks })
   }
-
+  
   // Remove Track from User's Playlist
-  removeTrack(track) {
+  removeTrack = (track) => {
     const tracks = this.state.playlistTracks;
-
+    
     tracks.filter(currentTrack => currentTrack.id !== track.id);
     this.setState({ playlistTracks: tracks })
   }
-
+  
   // Change the Name of the User's Playlist
-  updatePlaylistName(name) {
+  updatePlaylistName = (name) => {
     this.setState({ playlistName: name })
   }
-
+  
   // Save Tracks to the Playlist
-  savePlaylist() {
+  savePlaylist = () => {
     const { playlistTracks, playlistName } = this.state;
     const trackURIs = playlistTracks.map(track => track.uri)
     Spotify.savePlaylist(playlistName,  trackURIs)
@@ -64,21 +57,24 @@ class App extends Component {
       })
     })
   }
-
+  
   // Update the Searchresult' State with Search
-  search(term) {
+  search = (term) => {
     Spotify.search(term).then(searchResults => {
       this.setState({ searchResults: searchResults })
     })
   }
-
+  
   render() {
     return (
       <div>
         <h1>Et<span className='highlight'>ern</span>al <em>Play<span className='highlight'>list</span></em></h1>
         <div className='App'>
             <SearchBar 
-                onSearch={this.search} />
+                onSearch={this.search}
+                onLoad={this.handleLoading}
+                isLoading={this.state.isLoading} 
+              />
           <div className='App-playlist'>
             <SearchResults 
                 onAdd={this.addTrack}    

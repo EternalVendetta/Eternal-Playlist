@@ -6,16 +6,13 @@ class SearchBar extends Component {
         super(props);
 
         this.state = { term: '' }
-    // Bind THIS to Methods
-        this.search = this.search.bind(this);
-        this.handleTermChange = this.handleTermChange.bind(this);
     }
-
-    search() {
+    
+    search = () => {
         this.props.onSearch(this.state.term);
     }
 
-    handleTermChange(e) {
+    handleTermChange = e => {
         this.setState({ term: e.target.value })
     }
 

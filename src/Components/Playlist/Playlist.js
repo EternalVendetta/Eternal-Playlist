@@ -5,13 +5,7 @@ import './Playlist.css';
 import TrackList from '../TrackList/TrackList';
 
 class Playlist extends Component {
-    constructor(props) {
-        super(props);
-
-        this.handleChange = this.handleChange.bind(this);
-    }
-    
-    handleChange(e) {
+    handleChange = e => {
         const { onNameChange } = this.props;
         onNameChange(e.target.value);
     }

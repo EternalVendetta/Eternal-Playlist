@@ -2,14 +2,7 @@ import React, { Component } from 'react';
 import './Track.css';
 
 class Track extends Component {
-    constructor(props) {
-        super(props);
-
-        // Bind THIS to Methods
-        this.addTrack = this.addTrack.bind(this);
-        this.removeTrack = this.removeTrack.bind(this);
-    }
-
+    
 // Check if the Button is either + or -
     renderAction() {
     // Props Destructuring
@@ -22,12 +15,12 @@ class Track extends Component {
         }
     }
     // Add Track from searchResults to User's Playlist
-    addTrack() {
+    addTrack = () => {
         this.props.onAdd(this.props.track);
     }
 
     // Add Track from searchResults to User's Playlist
-    removeTrack() {
+    removeTrack = () => {
         this.props.onRemove(this.props.track);
     }
 
